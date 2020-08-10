@@ -1,0 +1,11 @@
+database:
+  host: localhost:27017
+  dbname: swapi-challenge
+  connectionTimeout: 10s
+  commandTimeout: 30s
+
+swapi:
+  baseUrl: https://swapi.dev/api
+
+server:
+  address: :8080
