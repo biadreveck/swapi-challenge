@@ -1,15 +1,13 @@
 package main
 
 import (
-	"b2w/swapi-challenge/api/handler"
-	"b2w/swapi-challenge/api/middleware"
+	"b2w/swapi-challenge/api"
 	"b2w/swapi-challenge/config"
 	"b2w/swapi-challenge/domain/entity/planet"
 	"b2w/swapi-challenge/infra/database"
 	"context"
 	"log"
 
-	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
@@ -34,11 +32,7 @@ func main() {
 	planetManager := planet.NewManager(planetDbRepo, planetSWApiRepo)
 
 	// Criando as rotas da API
-	router := gin.Default()
-	router.Use(middleware.Cors())
-
-	handler.CreatePlanetRoutes(router, planetManager)
-
+	router := api.SetupRouter(planetManager)
 	router.Run(config.Data.Server.Address)
 }
 

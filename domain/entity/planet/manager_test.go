@@ -62,31 +62,31 @@ func TestManagerInsert(t *testing.T) {
 	// Testing insertion success
 	err := manager.Insert(pSuccess)
 	assert.Nil(t, err)
-	assert.NotEqual(t, pSuccess.ID, primitive.NilObjectID)
-	assert.Equal(t, pSuccess.Apparitions, int32(1))
+	assert.NotEqual(t, primitive.NilObjectID, pSuccess.ID)
+	assert.Equal(t, int32(1), pSuccess.Apparitions)
 
 	// Testing invalid planet
 	err = manager.Insert(pInvalid)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, domain.ErrBadParamInput)
-	assert.Equal(t, pInvalid.ID, primitive.NilObjectID)
+	assert.Equal(t, domain.ErrBadParamInput, err)
+	assert.Equal(t, primitive.NilObjectID, pInvalid.ID)
 
 	// Testing swapi error
 	err = manager.Insert(pSwapiError)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "swapi error")
-	assert.Equal(t, pSwapiError.ID, primitive.NilObjectID)
+	assert.Equal(t, "swapi error", err.Error())
+	assert.Equal(t, primitive.NilObjectID, pSwapiError.ID)
 
 	// Testing planet found
 	err = manager.Insert(pGetFound)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, domain.ErrConflict)
-	assert.Equal(t, pGetFound.ID, primitive.NilObjectID)
+	assert.Equal(t, domain.ErrConflict, err)
+	assert.Equal(t, primitive.NilObjectID, pGetFound.ID)
 
 	// Testing insertion error
 	err = manager.Insert(pInsertError)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "insert error")
+	assert.Equal(t, "insert error", err.Error())
 }
 
 func TestManagerFindAll(t *testing.T) {
@@ -114,12 +114,12 @@ func TestManagerFindAll(t *testing.T) {
 	result, err := manager.FindAll()
 	assert.Nil(t, err)
 	assert.NotNil(t, result)
-	assert.Equal(t, len(result), 3)
+	assert.Equal(t, 3, len(result))
 
 	// Testing find all error
 	result, err = managerErr.FindAll()
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "find all error")
+	assert.Equal(t, "find all error", err.Error())
 }
 
 func TestManagerGetById(t *testing.T) {
@@ -144,13 +144,13 @@ func TestManagerGetById(t *testing.T) {
 	// Testing get success
 	result, err := manager.GetById(pID)
 	assert.Nil(t, err)
-	assert.Equal(t, result.ID, pID)
+	assert.Equal(t, pID, result.ID)
 
 	// Testing get error
 	result, err = manager.GetById(pIDErr)
 	assert.NotNil(t, err)
-	assert.Equal(t, result.ID, primitive.NilObjectID)
-	assert.Equal(t, err.Error(), "get error")
+	assert.Equal(t, primitive.NilObjectID, result.ID)
+	assert.Equal(t, "get error", err.Error())
 }
 
 func TestManagerDelete(t *testing.T) {
@@ -189,10 +189,10 @@ func TestManagerDelete(t *testing.T) {
 	// Testing planet not found
 	err = manager.Delete(pIDNotFound)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, domain.ErrNotFound)
+	assert.Equal(t, domain.ErrNotFound, err)
 
 	// Testing delete error
 	err = manager.Delete(pIDErr)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "delete error")
+	assert.Equal(t, "delete error", err.Error())
 }

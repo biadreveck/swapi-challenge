@@ -18,6 +18,7 @@ Este projeto é a implementação de uma API REST para cadastro de planetas do m
 - Gin (go get github.com/gin-gonic/gin)
 - MongoDB Go Driver (go get go.mongodb.org/mongo-driver/mongo)
 - Viper (go get github.com/spf13/viper)
+- Testify (go get github.com/stretchr/testify)
 
 ### Arquivo de configuração: *config/config.yml*
 Exemplo:
@@ -178,3 +179,15 @@ Endpoint: /v1/planets/{id do planeta}
 
 ##### Exemplo resposta:
 - **204 No Content**
+
+------------
+
+#### Usando localmente:
+Para rodar a aplicação localmente é necessário executar os seguintes passos:
+1. Instalar as ferramentas abaixo na máquina local:
+	- Go v1.14.6+
+	- MongoDB v4.4.0+
+2. Clonar esse repositório em qualquer diretório
+3. Alterar o arquivo *config/config.yml* com as configurações desejadas
+4. No diretório clonado, rodar a aplicação usando: **go run main.go**
+5. Se desejar, executar os testes com o comando: **go test ./...**

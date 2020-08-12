@@ -42,12 +42,12 @@ func TestRepoInsert(t *testing.T) {
 	// Testing insertion success
 	err := dbRepo.Insert(pSuccess)
 	assert.Nil(t, err)
-	assert.Equal(t, pSuccess.ID, pID)
+	assert.Equal(t, pID, pSuccess.ID)
 
 	// Testing insertion error
 	err = dbRepo.Insert(pError)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "insert error")
+	assert.Equal(t, "insert error", err.Error())
 }
 
 func TestRepoFindAll(t *testing.T) {
@@ -85,7 +85,7 @@ func TestRepoFindAll(t *testing.T) {
 
 	result, err := dbRepo.FindAll()
 	assert.Nil(t, err)
-	assert.Equal(t, len(result), 3)
+	assert.Equal(t, 3, len(result))
 
 	// Testing cursor error
 	dbHelperCursorErr := &mocks.DatabaseHelper{}
@@ -111,8 +111,8 @@ func TestRepoFindAll(t *testing.T) {
 
 	result, err = dbRepoCursorErr.FindAll()
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "cursor error")
-	assert.Equal(t, len(result), 0)
+	assert.Equal(t, "cursor error", err.Error())
+	assert.Equal(t, 0, len(result))
 
 	// Testing find error
 	dbHelperFindErr := &mocks.DatabaseHelper{}
@@ -129,8 +129,8 @@ func TestRepoFindAll(t *testing.T) {
 
 	result, err = dbRepoFindErr.FindAll()
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "find error")
-	assert.Equal(t, len(result), 0)
+	assert.Equal(t, "find error", err.Error())
+	assert.Equal(t, 0, len(result))
 }
 
 func TestRepoGetById(t *testing.T) {
@@ -163,7 +163,7 @@ func TestRepoGetById(t *testing.T) {
 
 	result, err := dbRepo.GetById(pID)
 	assert.Nil(t, err)
-	assert.Equal(t, result.ID, pID)
+	assert.Equal(t, pID, result.ID)
 
 	// Testing item not found decode error
 	singleResultHelperNotFoundErr := &mocks.SingleResultHelper{}
@@ -178,8 +178,8 @@ func TestRepoGetById(t *testing.T) {
 
 	result, err = dbRepo.GetById(pIDNotFound)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, domain.ErrNotFound)
-	assert.Equal(t, result.ID, primitive.NilObjectID)
+	assert.Equal(t, domain.ErrNotFound, err)
+	assert.Equal(t, primitive.NilObjectID, result.ID)
 
 	// Testing other decode error
 	singleResultHelperOtherErr := &mocks.SingleResultHelper{}
@@ -194,8 +194,8 @@ func TestRepoGetById(t *testing.T) {
 
 	result, err = dbRepo.GetById(pIDOtherErr)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "other decode error")
-	assert.Equal(t, result.ID, primitive.NilObjectID)
+	assert.Equal(t, "other decode error", err.Error())
+	assert.Equal(t, primitive.NilObjectID, result.ID)
 }
 
 func TestRepoGetByName(t *testing.T) {
@@ -228,7 +228,7 @@ func TestRepoGetByName(t *testing.T) {
 
 	result, err := dbRepo.GetByName(pName)
 	assert.Nil(t, err)
-	assert.Equal(t, result.Name, pName)
+	assert.Equal(t, pName, result.Name)
 
 	// Testing item not found decode error
 	singleResultHelperNotFoundErr := &mocks.SingleResultHelper{}
@@ -243,8 +243,8 @@ func TestRepoGetByName(t *testing.T) {
 
 	result, err = dbRepo.GetByName(pNameNotFound)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, domain.ErrNotFound)
-	assert.Equal(t, result.ID, primitive.NilObjectID)
+	assert.Equal(t, domain.ErrNotFound, err)
+	assert.Equal(t, primitive.NilObjectID, result.ID)
 
 	// Testing other decode error
 	singleResultHelperOtherErr := &mocks.SingleResultHelper{}
@@ -259,8 +259,8 @@ func TestRepoGetByName(t *testing.T) {
 
 	result, err = dbRepo.GetByName(pNameOtherErr)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "other decode error")
-	assert.Equal(t, result.ID, primitive.NilObjectID)
+	assert.Equal(t, "other decode error", err.Error())
+	assert.Equal(t, primitive.NilObjectID, result.ID)
 }
 
 func TestRepoDelete(t *testing.T) {
@@ -291,5 +291,5 @@ func TestRepoDelete(t *testing.T) {
 	// Testing deletion error
 	err = dbRepo.Delete(pIDErr)
 	assert.NotNil(t, err)
-	assert.Equal(t, err.Error(), "delete error")
+	assert.Equal(t, "delete error", err.Error())
 }
